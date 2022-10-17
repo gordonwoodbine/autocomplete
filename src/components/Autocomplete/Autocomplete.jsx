@@ -3,12 +3,12 @@ import { Autocomplete as MAuto, createFilterOptions } from '@material-ui/lab';
 import { Chip, TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 
-const Autocomplete = ({ options, ...props }) => {
-  const [value, setValue] = useState([]);
+const Autocomplete = ({ options, value, setValue, ...props }) => {
+  // const [value, setValue] = useState([]);
 
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
 
   const filter = createFilterOptions();
 
@@ -17,20 +17,23 @@ const Autocomplete = ({ options, ...props }) => {
       <MAuto
         options={options}
         // freeSolo
-        value={value}
+        // value={value}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
+            console.log('first if');
             setValue({
               email: newValue,
             });
           } else if (newValue && newValue.inputValue) {
+            console.log('second if');
             // Create a new value from the user input
             setValue({
               email: newValue.inputValue,
             });
             // handleAdd({ title: newValue.inputValue })
           } else {
-            setValue(newValue);
+            console.log(newValue);
+            setValue('test', newValue);
           }
         }}
         filterOptions={(options, params) => {

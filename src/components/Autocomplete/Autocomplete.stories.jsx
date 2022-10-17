@@ -23,22 +23,27 @@ export const AutoCompleteTest = (args) => {
     fetch();
   }, []);
 
-  useEffect(() => {
-    console.log(options);
-  }, [options]);
+  // useEffect(() => {
+  //   console.log(options);
+  // }, [options]);
   return (
     <>
       <Formik
         initialValues={initValues}
         onSubmit={(values, { setSubmitting }) => {
-          alert(JSON.stringify(values, null, 2));
+          console.log(values);
           setSubmitting(false);
         }}
       >
         {(actions) => (
           <>
             <form onSubmit={actions.handleSubmit}>
-              <Autocomplete name='test' options={options} />
+              <Autocomplete
+                name='test'
+                options={options}
+                value={actions.values}
+                setValue={actions.setFieldValue}
+              />
               <Box mt={2}>
                 <Button variant='contained' color='primary' type='submit'>
                   Submit
