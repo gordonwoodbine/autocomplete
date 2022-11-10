@@ -1,5 +1,6 @@
-import { ThemeProvider } from '@material-ui/core';
-import defaultTheme from '../src/components/themes/default';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+// import defaultTheme from '../src/components/themes/default';
+import { defaultTheme } from '../src/components/themes/defaults';
 import { addDecorator } from '@storybook/react';
 
 export const parameters = {
@@ -12,6 +13,6 @@ export const parameters = {
   },
 };
 
-addDecorator((story) => (
-  <ThemeProvider theme={defaultTheme}>{story()}</ThemeProvider>
-));
+const theme = createMuiTheme(defaultTheme);
+
+addDecorator((story) => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);

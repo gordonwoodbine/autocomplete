@@ -19,17 +19,26 @@ const Autocomplete = ({ options, value, setValue, ...props }) => {
         // freeSolo
         // value={value}
         onChange={(event, newValue) => {
-          if (typeof newValue === 'string') {
+          if (typeof newValue[newValue.length - 1] === 'string') {
             console.log('first if');
-            setValue({
-              email: newValue,
-            });
-          } else if (newValue && newValue.inputValue) {
+            const newNewVal = newValue.slice();
+            const input = newNewVal.pop();
+            setValue('test', [
+              ...newNewVal,
+              {
+                email: input,
+              }]);
+          } else if (newValue[newValue.length - 1]?.inputValue) {
             console.log('second if');
+            const newNewVal = newValue.slice();
+            const input = newNewVal.pop();
+
             // Create a new value from the user input
-            setValue({
-              email: newValue.inputValue,
-            });
+            setValue('test', [
+              ...newNewVal,
+              {
+                email: input.inputValue,
+              }]);
             // handleAdd({ title: newValue.inputValue })
           } else {
             console.log(newValue);
@@ -78,9 +87,12 @@ const Autocomplete = ({ options, value, setValue, ...props }) => {
         )}
         multiple
         renderTags={(tagValue, getTagProps) =>
-          tagValue.map((option, index) => (
-            <Chip label={option?.email || option} {...getTagProps({ index })} />
-          ))
+          value.test.map((option, index) => {
+            // console.log(option, 'tagValue')
+            return (
+              <Chip label={option?.email || option} {...getTagProps({ index })} />
+            )
+          })
         }
       />
     </>
